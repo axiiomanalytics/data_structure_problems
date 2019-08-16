@@ -1,109 +1,58 @@
 import sys
 
-class Node():   
-    def __init__(self, value, freq):
-        self.value = value
-        self.freq = freq
-        self.left = None
-        self.right = None
-    
-    def __repr__(self):
-        return f"Node({self.get_value()})"
-
-
-# take a string and determine the relevant frequencies of the characters
-# build and sort a list of tuples from lowest to highest frequencies
-def sortedFreq(string):
+def huffman_encoding(data):
     """
-    This function takes a text string as input and returns a sorted list of tuples (frequency, letter).
+    This function takes a text string as input and returns the encoded data and a tree with characters and binary codes.
     """
+    # take a string and determine the relevant frequencies of the characters
     freq_dict = {}
-    for letter in string:
-        if letter not in freq_dict:
-            freq_dict[letter] = 1
+    for char in data:
+        if char not in freq_dict:
+            freq_dict[char] = 1
         else: 
-            freq_dict[letter] += 1
-            
+            freq_dict[char] += 1
+    
+    # build and sort a list of tuples from highest to lowest frequencies
     freq_ls = []
     for key, value in freq_dict.items():
-        freq_ls.append(value, key) # value first for sorting
+        tuple = value, key
+        freq_ls.append(tuple) # value first for sorting
         
-    sorted_freq = sorted(freq_ls)
-    
-    return sorted_freq
+    sorted_freq = sorted(freq_ls, reverse=True)
 
-
-# build the Huffman Tree 
-def buildTree(sorted_freq):
-    """
-    This function takes a sorted frequency list and returns the Huffman Tree.  
-    """
-    while len(sorted_freq) > 1:
-        # take the first 2 letters (least frequent) and remove them from the list
-        least = tuple(sorted_freq[0:2]) # make it a tuple
-        rest_ls = sorted_freq[2:]
-
-        # sum the frequency of the first 2 letters as branch point and add it to the frequency list
-        sum_freq = least[0][0] + least[1][0]
-        rest_ls.append((sum_freq, least))
-        rest_ls.sort()
-
-    tree = rest_ls[0] 
+    # build the Huffman Tree by assigning a binary code to each letter, using shorter codes for the more frequent letters
+    tree = {}
+    code = '1'
+    for item in sorted_freq:
+        char = item[1]
+        tree[char] = code
+        code = '0' + code
     
-    return tree
-
-    
-# trim the Huffman Tree (remove the frequencies)
-def trimTree(tree):
-    """
-    This function takes the Huffman Tree and remove the frequencies.
-    """
-    branch = tree[1]
-    if type(branch) == type(''): # if branch is a leaf
-        return branch
-    else: # if not a leaf, trim left then right and then combine
-        new_tree = (trimTree(branch[0]), trimTree(branch[1]))
-    
-    return new_tree
-    
-    
-# assign a binary code to each letter
-def assignCode(tree, code=''):
-    """
-    This function assigns a binary code to each letter. 
-    """
-    global codes
-    if type(tree) == type(''): # if tree is a leaf
-        codes[tree] = code
-    else:
-        assignCode(tree[0], code+'0') # plus 0 on left branch
-        assignCode(tree[1], code+'1') # plus 1 on right branch
-    
-      
-# encode the text into its compressed form
-def huffman_encoding(data):
-    global codes
-    output = ''
-    for letter in data:
-        output += codes[letter]
-    
-    return output
+    # encode the text into its compressed form
+    encode = ''
+    for char in data:
+        encode += tree[char]
+        
+    return encode, tree
 
 
 # decode the text from its compressed form
 def huffman_decoding(data, tree):
-    output = ''
-    branch = tree
-    for bit in data:
-        if bit == '0': # go to left branch
-            branch = tree[0]
-        else: # go to right branch
-            branch = tree[1]
+    """
+    This function takes binary data and a tree of codes as input and returns the decoded data.
+    """
+    new_tree = {}
+    for key, value in tree.items():
+        new_tree[value] = key
         
-        if type(branch) == type(''):
-            output += branch
-            branch = tree
-    return output
+    decode = ''
+    code = ''
+    for bit in data:
+        if bit == '1':
+            decode += new_tree[code + bit]
+            code = '' # reset code 
+        else:
+            code += bit
     
 
 

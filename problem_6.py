@@ -109,6 +109,7 @@ def intersection(llist_1, llist_2):
     
 
 # test case 1
+print('Test case 1:')
 linked_list_1 = LinkedList()
 linked_list_2 = LinkedList()
 
@@ -120,29 +121,33 @@ for i in element_1:
 
 for i in element_2:
     linked_list_2.append(i)
-
-print('Case 1 result:')
-print (union(linked_list_1,linked_list_2)) # return None
-print (intersection(linked_list_1,linked_list_2)) # return None
+    
+print(f'\nGet the union of {linked_list_1.to_list()} and {linked_list_2.to_list()}:')
+print (union(linked_list_1,linked_list_2)) 
+print(f'\nGet the intersection of {linked_list_1.to_list()} and {linked_list_2.to_list()}:')
+print (intersection(linked_list_1,linked_list_2)) 
 
 # test case 2
-linked_list_3 = LinkedList()
-linked_list_4 = LinkedList()
+print('\nTest case 2:')
+linked_list_1 = LinkedList()
+linked_list_2 = LinkedList()
 
 element_1 = []
 element_2 = [1, 2, 3]
 
 for i in element_1:
-    linked_list_3.append(i)
+    linked_list_1.append(i)
 
 for i in element_2:
-    linked_list_4.append(i)
+    linked_list_2.append(i)
 
-print('\nCase 2 result:')
-print (union(linked_list_3,linked_list_4)) # return 1 -> 2 -> 3 ->
-print (intersection(linked_list_3,linked_list_4)) # return None
+print(f'\nGet the union of {linked_list_1.to_list()} and {linked_list_2.to_list()}:')
+print (union(linked_list_1,linked_list_2)) 
+print(f'\nGet the intersection of {linked_list_1.to_list()} and {linked_list_2.to_list()}:')
+print (intersection(linked_list_1,linked_list_2)) 
 
 # test case 3
+print('\nTest case 3:')
 linked_list_1 = LinkedList()
 linked_list_2 = LinkedList()
 
@@ -155,6 +160,7 @@ for i in element_1:
 for i in element_2:
     linked_list_2.append(i)
 
-print('\nCase 3 result:')
-print (union(linked_list_1,linked_list_2)) # return 1 -> 2 -> 3 -> 4 -> 5 ->
-print (intersection(linked_list_1,linked_list_2)) # return 3 ->
+print(f'\nGet the union of {linked_list_1.to_list()} and {linked_list_2.to_list()}:')
+print (union(linked_list_1,linked_list_2)) 
+print(f'\nGet the intersection of {linked_list_1.to_list()} and {linked_list_2.to_list()}:')
+print (intersection(linked_list_1,linked_list_2)) 

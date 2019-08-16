@@ -3,12 +3,17 @@ class Group(object):
         self.name = _name
         self.groups = []
         self.users = []
+    
+    def __repr__(self):
+        return f'name: {self.name} groups: {self.groups} users: {self.users}'
 
     def add_group(self, group):
         self.groups.append(group)
+        print(f'{self.name} has groups {self.groups}')
 
     def add_user(self, user):
         self.users.append(user)
+        print(f'{self.name} has users {self.users}')
 
     def get_groups(self):
         return self.groups
@@ -39,21 +44,25 @@ def is_user_in_group(user, group):
     
 
 # test case 1
+print('Test case 1:')
 parent = Group("parent")
 child = Group("child")
 sub_child = Group("subchild")
 
+print('\nAdd sub_child_user to sub_child.')
 sub_child_user = "sub_child_user"
 sub_child.add_user(sub_child_user)
 
-print('Is sub_child_user in sub_child? {}'.format(is_user_in_group(sub_child_user, sub_child))) # return True
+print('Is sub_child_user in sub_child? {}'.format(is_user_in_group(sub_child_user, sub_child))) 
 
 # test case 2
-
+print('\nTest case 2:')
+print('\nAdd sub_child group to child.')
 child.add_group(sub_child)
-parent.add_group(child)
-      
-print('Is sub_child_user in child? {}'.format(is_user_in_group(sub_child_user, child))) # return True
+print('Is sub_child_user in child? {}'.format(is_user_in_group(sub_child_user, child))) 
 
 # test case 3
-print('Is sub_child_user in parent? {}'.format(is_user_in_group(sub_child_user, parent))) # return True
+print('\nTest case 3:')
+print('\nAdd child group to parent.')
+parent.add_group(child)
+print('Is sub_child_user in parent? {}'.format(is_user_in_group(sub_child_user, parent)))

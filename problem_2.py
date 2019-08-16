@@ -23,9 +23,6 @@ def find_files(suffix, path):
     if os.path.isfile(path):
         if path.endswith(suffix):
             path_list.append(path)
-            return path_list
-        else:
-            return []
             
     elif os.path.isdir(path):
         dir_list = os.listdir(path)
@@ -38,4 +35,5 @@ def find_files(suffix, path):
 
 
 # test case
+print('Test case: \nFind all files with a suffix of \".c\" beneath folder testdir. \n')
 print(find_files('.c', 'testdir'))

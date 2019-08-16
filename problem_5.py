@@ -16,7 +16,7 @@ class Block():
         return sha.hexdigest()
     
     def __repr__(self):
-        return 'Timestamp: {}\nData: {}\nSHA256 Hash: {}\nPrevious_Hash: {}'.format(str(self.timestamp), str(self.data), str(self.hash), str(self.previous_hash))
+        return f'Timestamp: {str(self.timestamp)}\nData: {str(self.data)}\nSHA256 Hash: {str(self.hash)}\nPrevious_Hash: {str(self.previous_hash)}'
     
 class BlockChain():
     """
@@ -40,23 +40,29 @@ class BlockChain():
             
             
 # test case 1
+print('Test case 1:')
 blockchain = BlockChain()
-print('Case 1:')
+print('Blockchain is empty.')
 print(blockchain.head)
 
 # test case 2
+print('\nTest case 2:')
+print('\nAdd Block One:')
 blockchain.append(datetime.utcnow(), 'Block One')
-print('Case 2:')
 print(blockchain.tail)
 
 # test case 3
+print('\nTest case 3:')
+print('\nAdd Block Two:')
 blockchain.append(datetime.utcnow(), 'Block Two')
-print('Case 3:')
 print(blockchain.tail)
 
 # test case 4
+print('\nTest case 4:')
+print('\nAdd another three blocks:')
 blockchain.append(datetime.utcnow(), 'Block Three')
+print(f'\n{blockchain.tail}')
 blockchain.append(datetime.utcnow(), 'Block Four')
+print(f'\n{blockchain.tail}')
 blockchain.append(datetime.utcnow(), 'Block Five')
-print('Case 4:')
-print(blockchain.tail)
+print(f'\n{blockchain.tail}')
