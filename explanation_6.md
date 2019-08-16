@@ -1,0 +1,3 @@
+To get the union or intersection of two linked lists, I need to transform them to lists first. After I get the union or intersection of the two lists, I need to transform the result to a linked list. 
+
+The time and space complexities of to_list() are O(n) in which n is the length of the linked list. The worst case time and space complexities of union(llinst_1, llinst_2) is O(n) in which n is the combined size of the two linked lists. The worst case time complexity of intersection(llinst_1, llinst_2) is O(m*n) in which m is the size of llist_1 and n is the size of llist_2. The worst case space complexity of intersection(llinst_1, llinst_2) is O(n) in which n is the minimum size of the two linked lists.
