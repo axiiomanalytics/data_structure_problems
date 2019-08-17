@@ -55,6 +55,9 @@ class LRU_Cache(object):
     def set(self, key, value):
         # Set the value if the key is not present in the cache. If the cache is at capacity remove the oldest item.
         if key in self.cache:
+            # update the value
+            self.cache[key].value = value
+            print(f'cache: {self.cache}')
             return
         else:
             # create a new node
@@ -99,7 +102,7 @@ print('\nGet 2 from cache')
 print(our_cache.get(2)) 
 
 # test case 3
-print('\nTest case 2: \nSet capacity as 5')
+print('\nTest case 3: \nSet capacity as 5')
 our_cache = LRU_Cache(5)
 
 print('\nAdd 1 to cache')
@@ -127,3 +130,10 @@ print('\nGet 6 from cache')
 print(our_cache.get(6))
 print('\nGet 3 from cache')
 print(our_cache.get(3))
+
+# test case 4
+print('\nTest case 4:')
+print('\nUpdate 6 value to 7')
+our_cache.set(6, 7)
+print('\nGet 6 from cache')
+print(our_cache.get(6))

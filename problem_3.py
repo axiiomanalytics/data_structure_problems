@@ -2,7 +2,7 @@ import sys
 
 def huffman_encoding(data):
     """
-    This function takes a text string as input and returns the encoded data and a tree with characters and binary codes.
+    This function takes a string as input and returns the encoded data and a tree with characters and binary codes.
     """
     # take a string and determine the relevant frequencies of the characters
     freq_dict = {}
@@ -41,6 +41,9 @@ def huffman_decoding(data, tree):
     """
     This function takes binary data and a tree of codes as input and returns the decoded data.
     """
+    if data is None:
+        return None
+    
     new_tree = {}
     for key, value in tree.items():
         new_tree[value] = key
@@ -54,22 +57,54 @@ def huffman_decoding(data, tree):
         else:
             code += bit
     
+    return decode
+    
 
+def test_code(data):
+    if data is '':
+        print('No message to compress.\n')
+        return
+    
+    elif type(data) != type(''):
+        print('String message only.\n')
+        return
+        
+    else:
+        print (f'\nThe size of the data is: {sys.getsizeof(data)}\n')
+        print (f'The content of the data is: {data}\n')
 
-if __name__ == "__main__":
-    codes = {}
+        encoded_data, tree = huffman_encoding(data)
+        print (f'The size of the encoded data is: {sys.getsizeof(int(encoded_data, base=2))}\n')
+        print (f'The content of the encoded data is: {encoded_data}\n')
 
-    a_great_sentence = "The bird is the word"
+        decoded_data = huffman_decoding(encoded_data, tree)
+        print (f'The size of the decoded data is: {sys.getsizeof(decoded_data)}\n')
+        print (f'The content of the decoded data is: {decoded_data}\n') 
 
-    print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
-    print ("The content of the data is: {}\n".format(a_great_sentence))
+        
+# test case 1
+print('\nTest case 1: compress message \"\".\n')
+data = ''
+test_code(data)
 
-    encoded_data, tree = huffman_encoding(a_great_sentence)
+# test case 2
+print('\nTest case 2: compress message 23.\n')
+data = 23
+test_code(data)
 
-    print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
-    print ("The content of the encoded data is: {}\n".format(encoded_data))
+# test case 3
+print('\nTest case 3: compress message \"aaa\".')
+data = 'aaa'
+test_code(data)
 
-    decoded_data = huffman_decoding(encoded_data, tree)
+# test case 4
+print('\nTest case 4: compress message \"hello\".')
+data = 'hello'
+test_code(data)
 
-    print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
-    print ("The content of the encoded data is: {}\n".format(decoded_data))
+# test case 5
+print('\nTest case 5: compress message \"The bird is the word.\".')
+data = 'The bird is the word.'
+test_code(data)
+           
+            

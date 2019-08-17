@@ -39,12 +39,11 @@ def is_user_in_group(user, group):
     else:
         for sub_group in groups:
             return is_user_in_group(user, sub_group)
-    return False
-    
-    
+        return False
+
 
 # test case 1
-print('Test case 1:')
+print('\nTest case 1:')
 parent = Group("parent")
 child = Group("child")
 sub_child = Group("subchild")
@@ -53,16 +52,31 @@ print('\nAdd sub_child_user to sub_child.')
 sub_child_user = "sub_child_user"
 sub_child.add_user(sub_child_user)
 
-print('Is sub_child_user in sub_child? {}'.format(is_user_in_group(sub_child_user, sub_child))) 
+print(f'Is sub_child_user in sub_child? {is_user_in_group(sub_child_user, sub_child)}') 
 
 # test case 2
 print('\nTest case 2:')
 print('\nAdd sub_child group to child.')
 child.add_group(sub_child)
-print('Is sub_child_user in child? {}'.format(is_user_in_group(sub_child_user, child))) 
+print(f'Is sub_child_user in child? {is_user_in_group(sub_child_user, child)}') 
 
 # test case 3
 print('\nTest case 3:')
+print(f'\nIs sub_child_user in parent? {is_user_in_group(sub_child_user, parent)}') 
+
+# test case 4
+print('\nTest case 4:')
+print('\nAdd new_user to child.')
+new_user = 'new_user'
+child.add_user(new_user)
+print(f'Is new_user in child? {is_user_in_group(new_user, child)}')
+print(f'Is new_user in parent? {is_user_in_group(new_user, parent)}')
+
+# test case 5
+print('\nTest case 5:')
 print('\nAdd child group to parent.')
 parent.add_group(child)
-print('Is sub_child_user in parent? {}'.format(is_user_in_group(sub_child_user, parent)))
+print(f'Is sub_child_user in parent? {is_user_in_group(sub_child_user, parent)}')
+print(f'Is new_user in parent? {is_user_in_group(new_user, parent)}')
+test_user = 'test_user'
+print(f'Is test_user in parent? {is_user_in_group(test_user, parent)}')
